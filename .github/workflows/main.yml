@@ -6,6 +6,7 @@ on:
     paths:
       - '01-resource-group/**'
       - '.github/workflows/main.yml'
+  workflow_dispatch: 
 permissions:
   contents: read
   id-token: write
