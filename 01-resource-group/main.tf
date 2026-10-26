@@ -16,7 +16,7 @@ terraform {
 }
 
 provider "azurerm" {
-  features {} 
+  features {}
 }
 
 resource "azurerm_resource_group" "main" {
