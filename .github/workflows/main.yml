@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - main
+    paths:
+      - '01-resource-group/**'
+      - '.github/workflows/main.yml'
 permissions:
   contents: read
   id-token: write
@@ -13,7 +16,10 @@ env:
   ARM_USE_OIDC: true
   ARM_USE_AZUREAD: true
 jobs:
-  plain:
+  plan:
+    defaults:
+      run:
+        working-directory: 01-resource-group/
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -24,11 +30,17 @@ jobs:
         with:
           terraform_version: "1.14.6"
 
-      - name: terraform commands
-        run: |
-          terraform init
-          terraform validate
-          terraform plan
+      - name: terraform init
+        run: terraform init
+
+      - name: terraform fmt
+        run: terraform fmt -check
+
+      - name: terraform validate
+        run: terraform validate
+
+      - name: terraform plan
+        run: terraform plan -input=false
 
       
 
